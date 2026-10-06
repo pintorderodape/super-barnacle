@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Produto - Enterprise</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .card { background: white; padding: 40px; border-radius: 8px; width: 100%; max-width: 460px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        h2 { margin-bottom: 24px; color: #0f172a; font-size: 22px; font-weight: 700; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; margin-bottom: 6px; color: #475569; font-weight: 600; font-size: 13px; }
+        .form-group input { width: 100%; padding: 11px 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; outline: none; }
+        .form-group input:focus { border-color: #00a878; box-shadow: 0 0 0 4px rgba(0, 168, 120, 0.12); }
+        .btn-salvar { background-color: #00a878; color: white; border: none; padding: 13px; border-radius: 6px; font-weight: 600; width: 100%; cursor: pointer; font-size: 15px; margin-top: 10px; }
+        .btn-salvar:hover { background-color: #008f64; }
+        .btn-voltar { display: block; text-align: center; margin-top: 16px; color: #64748b; text-decoration: none; font-size: 14px; }
+        .btn-voltar:hover { color: #334155; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Novo Cadastro de Produto</h2>
+        <form action="/salvar" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome do Artigo / Produto</label>
+                <input type="text" id="nome" name="nome" placeholder="Ex: Teclado Mecânico RGB" required>
+            </div>
+            <div class="form-group">
+                <label for="quantidade">Quantidade Inicial</label>
+                <input type="number" id="quantidade" name="quantidade" placeholder="Ex: 20" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="preco">Preço de Custo (R$)</label>
+                <input type="text" id="preco" name="preco" placeholder="Ex: 249.90" required>
+            </div>
+            <button type="submit" class="btn-salvar">Confirmar e Registrar</button>
+            <a href="/" class="btn-voltar">Voltar para o Painel</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque - Login</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body style="width: 100vw; height: 100vh; background: linear-gradient(rgba(11, 17, 30, 0.88), rgba(11, 17, 30, 0.88)), url('https://unsplash.com'); background-size: cover; background-position: center; background-repeat: no-repeat; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Controle de Estoque</h1>
+            <p>Faça login para gerenciar seus produtos</p>
+        </div>
+
+        {% if erro %}
+        <div class="error-message" style="display: block;">
+            Usuário ou senha incorretos.
+        </div>
+        {% endif %}
+
+        <form action="/fazer_login" method="POST">
+            <div class="form-group">
+                <label for="usuario">Usuário ou E-mail</label>
+                <input type="text" name="usuario" id="usuario" placeholder="Ex: admin" required>
+            </div>
+
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" name="senha" id="senha" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn-login">Acessar Sistema</button>
+        </form>
+    </div>
+
+</body>
+</html>

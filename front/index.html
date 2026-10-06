@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise ERP - Controle de Estoque</title>
+    <!-- Vincula o arquivo CSS externo de login -->
+    <link rel="stylesheet" href="/estilo/login.css">
+    <style>
+        /* ==========================================================================
+           ESTILOS DO PAINEL DE ESTOQUE (LAYOUT PREMIUM)
+           ========================================================================== */
+        #painel-estoque {
+            display: none;
+            background-color: #f8fafc;
+            min-height: 100vh;
+            width: 100vw;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .navbar {
+            background-color: #0f172a;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            padding: 0 32px;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .brand {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar .brand span {
+            color: #00a878;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #00a878;
+            box-shadow: 0 0 10px rgba(0, 168, 120, 0.2);
+        }
+
+        .btn-logout {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-logout:hover {
+            background-color: #ef4444;
+            color: #ffffff;
+        }
+
+        .container {
+            padding: 40px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .main-header h2 {
+            color: #0f172a;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .btn-novo {
+            background-color: #00a878;
+            color: white;
+            padding: 11px 22px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 168, 120, 0.2);
+            transition: all 0.2s;
+        }
+
+        .btn-novo:hover {
+            background-color: #008f64;
+            transform: translateY(-1px);
+        }
+
+        /* TABELA ESTILIZADA COMPACTA */
+        .table-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 16px 24px;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        td {
+            color: #334155;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        /* MODAL FLUTUANTE PREMIUM */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(4px);
+            justify-content: center; align-items: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            padding: 36px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 460px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid #e2e8f0;
+            animation: modalFadeUp 0.3s ease;
+        }
+
+        @keyframes modalFadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h3 { color: #0f172a; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+        .close-modal { font-size: 24px; color: #94a3b8; cursor: pointer; transition: color 0.2s; }
+        .close-modal:hover { color: #64748b; }
+
+        .form-group-modal { margin-bottom: 18px; }
+        .form-group-modal label { display: block; margin-bottom: 6px; color: #475569; font-weight: 600; font-size: 13px; }
+        .form-group-modal input { width: 100%; padding: 11px 14px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; color: #0f172a; background-color: #f8fafc; outline: none; transition: all 0.2s; }
+        .form-group-modal input:focus { border-color: #00a878; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(0, 168, 120, 0.12); }
+
+        .btn-salvar { background-color: #00a878; color: white; border: none; padding: 13px; border-radius: 6px; font-weight: 600; width: 100%; cursor: pointer; font-size: 15px; box-shadow: 0 4px 12px rgba(0, 168, 120, 0.15); transition: background-color 0.2s; margin-top: 8px; }
+        .btn-salvar:hover { background-color: #008f64; }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- 1. SEÇÃO DE LOGIN                          -->
+    <!-- ========================================== -->
+    <div id="tela-login">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>Controle de Estoque</h1>
+                <p>Faça login para gerenciar seus produtos</p>
+            </div>
+
+            <div class="error-message" id="errorMessage" style="display: none;">
+                Usuário ou senha incorretos.
+            </div>
+
+            <form onsubmit="validarLoginUmaPagina(event)">
+                <div class="form-group">
+                    <label for="usuario">Usuário ou E-mail</label>
+                    <input type="text" id="usuario" placeholder="Ex: admin" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-login">Acessar Sistema</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 2. PAINEL DE CONTROLE DE ESTOQUE           -->
+    <!-- ========================================== -->
+    <div id="painel-estoque">
+        <nav class="navbar">
+            <div class="brand">Control<span>Estoque</span></div>
+            <div class="user-menu">
+                <img src="https://unsplash.com" class="profile-pic" alt="Perfil">
+                <button onclick="fazerLogout()" class="btn-logout">Sair do Sistema</button>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="main-header">
+                <h2>Produtos em Almoxarifado</h2>
+                <button class="btn-novo" onclick="abrirModal()">+ Novo Produto</button>
+            </div>
+
+            <div class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">ID</th>
+                            <th>Nome do Produto</th>
+                            <th style="width: 180px;">Quantidade</th>
+                            <th style="width: 200px;">Preço Unitário</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for produto in produtos %}
+                        <tr>
+                            <td><strong>{{ produto[0] }}</strong></td>
+                            <td>{{ produto[1] }}</td>
+                            <td>{{ produto[2] }} unidades</td>
+                            <td><span style="color: #00a878; font-weight: 600;">R$ {{ "%.2f"|format(produto[3]) }}</span></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" style="text-align: center; color: #64748b; padding: 32px;">Nenhum produto cadastrado no banco de dados.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+

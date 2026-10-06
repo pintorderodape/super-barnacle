@@ -1,0 +1,111 @@
+/* Reset básico de margens */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Fundo com a foto real de escritório enviada (Notebook, Calculadora e Relatórios) */
+body {
+    width: 100vw;
+    height: 100vh;
+    background-image: ('/css/empresa.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Card centralizado do formulário (Sombra reforçada para destacar na mesa branca) */
+.login-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25), 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.login-header {
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.login-header h1 {
+    color: #0f172a;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+}
+
+.login-header p {
+    color: #64748b;
+    font-size: 13.5px;
+}
+
+/* Campos de entrada (inputs) */
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    color: #334155;
+    font-size: 13px;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14.5px;
+    color: #0f172a;
+    background-color: #f8fafc;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+/* Foco do input com a cor esmeralda do seu sistema */
+.form-group input:focus {
+    border-color: #00a878;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(0, 168, 120, 0.12);
+}
+
+/* Botão de Enviar Verde Esmeralda Padrão */
+.btn-login {
+    width: 100%;
+    padding: 13px;
+    background-color: #00a878;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 6px;
+}
+
+.btn-login:hover {
+    background-color: #008f64;
+}
+
+/* Alerta de erro corporativo */
+.error-message {
+    color: #dc2626;
+    font-size: 13px;
+    margin-bottom: 22px;
+    background-color: #fef2f2;
+    padding: 12px 16px;
+    border-radius: 6px;
+    border: 1px solid #fca5a5;
+}
